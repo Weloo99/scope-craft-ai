@@ -9,8 +9,7 @@ import {
   FormField, 
   FormItem, 
   FormLabel, 
-  FormMessage,
-  FormDescription
+  FormMessage 
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -106,16 +105,13 @@ const ClientInputForm: React.FC<ClientInputFormProps> = ({ onSubmit, isLoading }
             name="references"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Reference Websites</FormLabel>
+                <FormLabel>References or Lookalikes (Optional)</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="airbnb.com, rover.com, pawshake.com"
+                    placeholder="airbnb.com, rover.com"
                     {...field}
                   />
                 </FormControl>
-                <FormDescription className="text-xs text-gray-500">
-                  Enter websites or businesses that the client wants to emulate, separated by commas
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
