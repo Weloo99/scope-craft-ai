@@ -1,6 +1,6 @@
 
 import React from "react";
-import { FileText } from "lucide-react";
+import { FileText, Bot } from "lucide-react";
 
 const Header: React.FC = () => {
   return (
@@ -12,8 +12,12 @@ const Header: React.FC = () => {
           </div>
           <h1 className="text-xl font-bold ml-2">BriefForge AI</h1>
         </div>
-        <div className="ml-auto text-sm">
-          <span className="bg-briefforge-700 px-2 py-1 rounded">Technical Scope Builder</span>
+        <div className="ml-auto flex items-center space-x-3">
+          <span className="flex items-center text-xs bg-briefforge-700 px-2 py-1 rounded">
+            <Bot className="h-3 w-3 mr-1" />
+            Enhanced with GGML
+          </span>
+          <span className="bg-briefforge-700 px-2 py-1 rounded text-sm">Technical Scope Builder</span>
         </div>
       </div>
     </header>
