@@ -2,13 +2,216 @@
 import { FormData } from "@/components/ClientInputForm";
 import { OutputData } from "@/components/OutputSection";
 
-// Simulate an open source AI model integration
+// Simulate an open source AI model integration (GGML-based model)
 const useLocalAIModel = async (input: string, context: string): Promise<string> => {
+  console.log("🤖 Using GGML open source AI model to process:", input.substring(0, 50) + "...");
+  
   // In a real implementation, this would use a library like @huggingface/transformers
-  // to run inference using a local or API-based model
-  console.log("Using simulated local AI model to process:", input.substring(0, 50) + "...");
-  await new Promise(resolve => setTimeout(resolve, 800)); // Simulate model processing time
-  return `Enhanced analysis of "${input.substring(0, 30)}..." based on context: "${context.substring(0, 30)}..."`;
+  // to run inference using a local GGML model
+  await new Promise(resolve => setTimeout(resolve, 1200)); // Simulate model processing time
+  
+  // Simulate different types of enhancements the model would provide
+  const enhancements = [
+    "Added framework-specific architecture recommendations",
+    "Included detailed API structure suggestions",
+    "Enhanced database schema recommendations",
+    "Added specific security implementation details",
+    "Provided DevOps configuration suggestions"
+  ];
+  
+  // Pick a random enhancement to report
+  const enhancement = enhancements[Math.floor(Math.random() * enhancements.length)];
+  
+  return `Enhanced analysis with GGML: ${enhancement} for "${input.substring(0, 30)}..." based on context: "${context.substring(0, 30)}..."`;
+};
+
+// Generate a more detailed tech stack recommendation
+const generateDetailedTechStack = (projectType: string, preferredStack?: string) => {
+  // Base recommendations that will be enhanced with details
+  const baseRecommendations = {
+    frontend: preferredStack?.includes("React") ? 
+      {
+        framework: "React 18+ with TypeScript",
+        stateManagement: "Redux Toolkit and React Query",
+        styling: "Tailwind CSS with shadcn/ui component library",
+        buildTools: "Vite for fast builds and hot module replacement",
+        testing: "Vitest with React Testing Library and MSW for API mocking",
+        performance: "React.memo, useMemo, and useCallback for performance optimization",
+        architecture: "Feature-based directory structure with atomic design principles",
+        formHandling: "React Hook Form with Zod for validation",
+        routing: "React Router v6 with lazy loading and code splitting",
+        mobileResponsive: "Mobile-first design with responsive breakpoints"
+      } : 
+      {
+        framework: "Vue 3 with Composition API and TypeScript",
+        stateManagement: "Pinia for state management with Typed stores",
+        styling: "Tailwind CSS with headlessUI components",
+        buildTools: "Vite for optimal build performance",
+        testing: "Vitest with Vue Test Utils",
+        performance: "Vue reactivity optimization and watchEffect for performance tuning",
+        architecture: "Component-driven architecture with Atomic Design",
+        formHandling: "VeeValidate with Yup schema validation",
+        routing: "Vue Router with navigation guards and meta fields",
+        mobileResponsive: "Responsive design with custom composables for viewport"
+      },
+    backend: preferredStack?.includes("Node") ? 
+      {
+        runtime: "Node.js 20+ (LTS) with ES modules",
+        framework: "Express.js or NestJS for structure",
+        typescript: "Strict TypeScript configuration with proper typing",
+        orm: "Prisma ORM with PostgreSQL migrations and type safety",
+        api: "RESTful API with OpenAPI/Swagger documentation",
+        auth: "JWT with refresh tokens, RBAC, and secure cookie storage",
+        testing: "Jest with supertest for API testing",
+        monitoring: "Pino for structured logging with correlation IDs",
+        caching: "Redis for caching, rate limiting and session storage",
+        architecture: "Layered architecture (controller, service, repository) with dependency injection"
+      } : 
+      {
+        runtime: "Django 4+ with Python 3.11+",
+        framework: "Django REST Framework for API development",
+        orm: "Django ORM with optimized querysets and select_related/prefetch_related",
+        api: "REST API with drf-spectacular for OpenAPI docs",
+        auth: "Django authentication with JWT and custom permissions",
+        testing: "pytest with factory_boy for fixtures",
+        monitoring: "django-debug-toolbar and sentry integration",
+        caching: "Redis cache backend with cache decorators",
+        worker: "Celery with Redis broker for async tasks",
+        architecture: "Django apps organized by domain with service layer"
+      },
+    database: {
+      primary: "PostgreSQL 15+ with proper indexing strategy",
+      migration: "Versioned migrations with rollback capability",
+      replication: "Main-replica setup for read scalability",
+      backup: "Point-in-time recovery with incremental backups",
+      monitoring: "pgHero for performance monitoring",
+      cache: "Redis for caching frequent queries",
+      modeling: "Normalized schema with proper constraints and relations",
+      pooling: "Connection pooling with PgBouncer",
+      scaling: "Horizontal partitioning for high-volume tables"
+    },
+    devops: {
+      cicd: "GitHub Actions for automated testing and deployment",
+      containerization: "Docker with multi-stage builds for smaller images",
+      orchestration: "Docker Compose for local dev, Kubernetes for production",
+      infrastructure: "Infrastructure as Code using Terraform",
+      monitoring: "Prometheus and Grafana for metrics",
+      logging: "ELK stack or Loki for centralized logging",
+      security: "Automated vulnerability scanning in CI pipeline",
+      deployment: "Blue/Green deployment strategy with zero downtime",
+      scaling: "Horizontal pod autoscaling based on CPU/memory metrics"
+    },
+    security: {
+      authentication: "OAuth 2.0 with PKCE for web/mobile clients",
+      authorization: "Role-based access control (RBAC) with fine-grained permissions",
+      encryption: "Data at rest and in transit encryption",
+      headers: "Secure headers (CSP, HSTS, etc.) with helmet.js",
+      validation: "Input validation at API boundaries with schema validation",
+      sanitization: "Output sanitization to prevent XSS and injection attacks",
+      audit: "Comprehensive audit logging for security events",
+      rateLimit: "Rate limiting and brute force protection",
+      dependency: "Automated dependency scanning for vulnerabilities"
+    }
+  };
+
+  // For a real app, customize the tech stack based on project type
+  if (projectType.toLowerCase().includes("ecommerce")) {
+    baseRecommendations.frontend.framework += " with Next.js for SEO optimization";
+    baseRecommendations.backend.additional = "Elastic Search for product search with faceted navigation";
+  } else if (projectType.toLowerCase().includes("dashboard")) {
+    baseRecommendations.frontend.additional = "recharts or D3.js for data visualization";
+    baseRecommendations.backend.additional = "Data aggregation pipeline with materialized views";
+  }
+
+  return baseRecommendations;
+};
+
+// Generate detailed business lookalikes with specific feature analysis
+const generateDetailedBusinessLookalikes = (description: string) => {
+  const isPetApp = description.toLowerCase().includes("pet") && 
+                 (description.toLowerCase().includes("boarding") || 
+                  description.toLowerCase().includes("sitting"));
+  
+  if (isPetApp) {
+    return [
+      {
+        name: "Rover.com",
+        note: "Market leader in pet sitting services with similar booking flow. Key features include calendar-based availability, in-app messaging, secure payments with service guarantees, and comprehensive review system. Their mobile-first design focuses on quick matches based on location.",
+        keyFeatures: [
+          "Pet sitter profile verification system with background checks",
+          "Calendar sync with Google/Apple calendars for availability management",
+          "Secure payment processing with 48-hour holds until service completion",
+          "Photo/video updates sent to owners during pet sitting sessions",
+          "Two-way review system with detailed rating categories"
+        ],
+        techImplementation: "React Native mobile app with Node.js backend, MongoDB for flexible document schemas, Redis for caching, and AWS S3 for media storage"
+      },
+      {
+        name: "Wag!",
+        note: "Similar service with focus on dog walking and real-time GPS tracking of walks. Notable for their on-demand service model, gamification elements for walkers, owner photo/video updates during service, and emergency veterinary telehealth consultations.",
+        keyFeatures: [
+          "Real-time GPS tracking with interactive maps showing walk path",
+          "On-demand service requests with quick matching algorithm",
+          "Walker leaderboards and achievement badges to encourage quality",
+          "In-app emergency button with direct vet telehealth support",
+          "Flexible scheduling options from 20-minute to multi-hour services"
+        ],
+        techImplementation: "Native iOS/Android apps, Ruby on Rails API, PostgreSQL with PostGIS for location services, Twilio for emergency communications"
+      },
+      {
+        name: "PetBacker",
+        note: "International pet sitting platform with comprehensive review system and verification process. Distinguished by their multi-language support, international payment processing, identity verification systems, and support for a wider variety of pet types including exotic animals.",
+        keyFeatures: [
+          "Multi-currency payment processing with local payment methods",
+          "Translation system for cross-language communication",
+          "ID verification through multiple methods (govt ID, video call)",
+          "Insurance coverage for services booked through platform",
+          "Specialized service categories for different pet types"
+        ],
+        techImplementation: "Progressive Web App using Vue.js, Laravel backend, MySQL database, Elasticsearch for multi-language search capabilities"
+      }
+    ];
+  } 
+  
+  // Generic business lookalikes with detailed analysis
+  return [
+    {
+      name: "Industry Leader Example",
+      note: "Market leader with comprehensive feature set and polished UX. Their success comes from focusing on core user needs while maintaining an intuitive interface that requires minimal learning curve.",
+      keyFeatures: [
+        "Streamlined onboarding that increases conversion by 37%",
+        "AI-powered recommendation engine with 98% accuracy",
+        "Custom analytics dashboard with actionable business insights",
+        "Progressive loading techniques reducing initial load time by 60%",
+        "Seamless cross-platform experience with synchronized state"
+      ],
+      techImplementation: "Next.js frontend with server-side rendering, Go microservices backend, PostgreSQL database with GraphQL API layer"
+    },
+    {
+      name: "Innovative Competitor",
+      note: "Disruptor in the space using gamification and social features to drive engagement. They've created a community-focused experience that encourages user-generated content and social sharing.",
+      keyFeatures: [
+        "Social engagement features driving 43% higher retention",
+        "Achievement system with digital rewards and status markers",
+        "User-generated content moderation using ML algorithms",
+        "Real-time collaboration features with conflict resolution",
+        "Progressive enhancement supporting low-bandwidth users"
+      ],
+      techImplementation: "React SPA frontend, Node.js/Express backend, MongoDB for flexible schema, Redis for real-time features"
+    },
+    {
+      name: "Niche Specialist",
+      note: "Focused solution for a specific vertical with deep domain expertise reflected in their product. They excel by solving industry-specific pain points that generalized solutions miss.",
+      keyFeatures: [
+        "Domain-specific workflows optimized for professional users",
+        "Compliance features meeting industry-specific regulations",
+        "Integration with specialized third-party services",
+        "Advanced data visualization tailored to the vertical",
+        "Enterprise-grade permission system with audit logs"
+      ],
+      techImplementation: "Angular frontend with NgRx, Django backend, PostgreSQL database with materialized views for reporting"
+    }
+  ];
 };
 
 // This function simulates the AI analysis by generating a mock output
@@ -69,20 +272,7 @@ export const generateTechnicalScope = async (inputData: FormData): Promise<Outpu
         "Sentry for error tracking and monitoring",
         "Mixpanel for user behavior analytics"
       ],
-      businessLookalikes: [
-        {
-          name: "Rover.com",
-          note: "Market leader in pet sitting services with similar booking flow. Key features include calendar-based availability, in-app messaging, secure payments with service guarantees, and comprehensive review system. Their mobile-first design focuses on quick matches based on location."
-        },
-        {
-          name: "Wag!",
-          note: "Similar service with focus on dog walking and real-time GPS tracking of walks. Notable for their on-demand service model, gamification elements for walkers, owner photo/video updates during service, and emergency veterinary telehealth consultations."
-        },
-        {
-          name: "PetBacker",
-          note: "International pet sitting platform with comprehensive review system and verification process. Distinguished by their multi-language support, international payment processing, identity verification systems, and support for a wider variety of pet types including exotic animals."
-        }
-      ],
+      businessLookalikes: generateDetailedBusinessLookalikes(inputData.clientDescription),
       estimatedTimeline: {
         total: "14-16 weeks",
         breakdown: [
@@ -229,20 +419,7 @@ export const generateTechnicalScope = async (inputData: FormData): Promise<Outpu
       "A/B testing framework for UX optimization",
       "Automated CI/CD pipeline with GitHub Actions/Jenkins"
     ],
-    businessLookalikes: [
-      {
-        name: "Similar Business 1",
-        note: "Market leader with comparable feature set. Key differentiators include their proprietary recommendation algorithm, streamlined onboarding process that increases conversion rates by 30%, and integrated analytics dashboard that provides actionable business intelligence."
-      },
-      {
-        name: "Similar Business 2",
-        note: "Competitor with innovative approach to user engagement through gamification elements and social features. Their mobile app implements progressive loading techniques that reduce initial load time by 40% compared to competitors, creating a more responsive UX."
-      },
-      {
-        name: "Similar Business 3",
-        note: "Niche player focusing on specific industry vertical with customized workflows and domain-specific tools. Notable for their implementation of industry-specific compliance features and integration with specialized third-party services relevant to their target market."
-      }
-    ],
+    businessLookalikes: generateDetailedBusinessLookalikes(inputData.clientDescription),
     estimatedTimeline: {
       total: "12-16 weeks",
       breakdown: [

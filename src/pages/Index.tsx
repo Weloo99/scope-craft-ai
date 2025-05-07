@@ -48,21 +48,21 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-pink-50 flex flex-col">
       <Header />
       
       <main className="flex-grow container mx-auto py-6 px-4">
         <div className="max-w-6xl mx-auto">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="mb-6">
-              <TabsTrigger value="input">Client Input</TabsTrigger>
-              <TabsTrigger value="output" disabled={!outputData}>Scope Output</TabsTrigger>
+            <TabsList className="mb-6 bg-gradient-to-r from-purple-200 to-pink-200">
+              <TabsTrigger value="input" className="data-[state=active]:bg-white">Client Input</TabsTrigger>
+              <TabsTrigger value="output" disabled={!outputData} className="data-[state=active]:bg-white">Scope Output</TabsTrigger>
             </TabsList>
             
             <TabsContent value="input">
               <div className="grid gap-6 md:grid-cols-3">
                 <div className="md:col-span-2">
-                  <Card>
+                  <Card className="border-purple-200">
                     <CardContent className="pt-6">
                       <ClientInputForm onSubmit={handleFormSubmit} isLoading={isLoading} />
                     </CardContent>
@@ -70,20 +70,20 @@ const Index = () => {
                 </div>
                 
                 <div>
-                  <Card className="bg-briefforge-50 border-briefforge-100">
+                  <Card className="bg-gradient-to-br from-purple-100 to-pink-100 border-purple-200">
                     <CardContent className="pt-6">
                       <div className="flex items-center mb-4">
-                        <Sparkles className="h-5 w-5 mr-2 text-briefforge-600" />
-                        <h3 className="font-medium text-briefforge-800">How BriefForge AI Works</h3>
+                        <Sparkles className="h-5 w-5 mr-2 text-purple-600" />
+                        <h3 className="font-medium text-purple-800">How Briefly Works</h3>
                       </div>
                       <div className="space-y-4 text-sm">
                         <p className="text-gray-700">
                           Enter your client's requirements along with key project details, and 
-                          BriefForge AI will transform them into a comprehensive technical scope.
+                          Briefly will transform them into a comprehensive technical scope.
                         </p>
                         
                         <div>
-                          <h4 className="font-medium text-briefforge-700 mb-1">You'll get:</h4>
+                          <h4 className="font-medium text-purple-700 mb-1">You'll get:</h4>
                           <ul className="list-disc pl-5 text-gray-700 space-y-1">
                             <li>Detailed functional requirements</li>
                             <li>Recommended tech stack</li>
@@ -94,8 +94,8 @@ const Index = () => {
                           </ul>
                         </div>
                         
-                        <div className="bg-white p-3 rounded-md border border-briefforge-100">
-                          <h4 className="font-medium text-briefforge-700 mb-1">Pro tip</h4>
+                        <div className="bg-white p-3 rounded-md border border-purple-200">
+                          <h4 className="font-medium text-purple-700 mb-1">Pro tip</h4>
                           <p className="text-gray-700">
                             The more specific your client's description, the more accurate your scope will be. Include 
                             all available details in the description.
@@ -117,9 +117,9 @@ const Index = () => {
         </div>
       </main>
       
-      <footer className="bg-gray-100 py-4 border-t border-gray-200">
-        <div className="container mx-auto text-center text-gray-600 text-sm">
-          BriefForge AI - Technical Scope Builder for Software Projects
+      <footer className="bg-gradient-to-r from-purple-100 to-pink-100 py-4 border-t border-purple-200">
+        <div className="container mx-auto text-center text-purple-600 text-sm">
+          Briefly - Technical Scope Builder for Software Projects
         </div>
       </footer>
     </div>
