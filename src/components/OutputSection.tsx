@@ -15,7 +15,8 @@ import {
   Wrench,
   Link,
   Search,
-  MessageSquare
+  MessageSquare,
+  ExternalLink
 } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
@@ -31,7 +32,10 @@ export interface OutputData {
   thirdPartyTools: string[];
   businessLookalikes: Array<{
     name: string;
+    url?: string;
     note: string;
+    keyFeatures?: string[];
+    techImplementation?: string;
   }>;
   estimatedTimeline: {
     total: string;
@@ -164,11 +168,39 @@ const OutputSection: React.FC<OutputSectionProps> = ({ outputData, onExport }) =
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3">
+                <ul className="space-y-4">
                   {outputData.businessLookalikes.map((item, index) => (
-                    <li key={index}>
-                      <div className="font-medium">{item.name}</div>
-                      <div className="text-sm text-gray-600">{item.note}</div>
+                    <li key={index} className="border-b border-gray-100 pb-3 last:border-b-0 last:pb-0">
+                      <div className="font-medium flex items-center">
+                        {item.name}
+                        {item.url && (
+                          <a 
+                            href={item.url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="ml-2 text-xs text-purple-600 hover:text-purple-800 inline-flex items-center"
+                          >
+                            <ExternalLink size={12} className="mr-1" />
+                            Visit site
+                          </a>
+                        )}
+                      </div>
+                      <div className="text-sm text-gray-600 mt-1">{item.note}</div>
+                      {item.keyFeatures && (
+                        <div className="mt-2">
+                          <div className="text-xs font-semibold text-gray-700 mb-1">Key Features:</div>
+                          <ul className="list-disc pl-4 text-xs text-gray-600 space-y-0.5">
+                            {item.keyFeatures.slice(0, 3).map((feature, idx) => (
+                              <li key={idx}>{feature}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {item.techImplementation && (
+                        <div className="mt-2 text-xs text-gray-500">
+                          <span className="font-semibold">Tech stack:</span> {item.techImplementation}
+                        </div>
+                      )}
                     </li>
                   ))}
                 </ul>

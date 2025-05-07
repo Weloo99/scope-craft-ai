@@ -1,6 +1,35 @@
-
 import { FormData } from "@/components/ClientInputForm";
 import { OutputData } from "@/components/OutputSection";
+
+// Define interfaces for tech stack to avoid TypeScript errors
+interface FrontendTech {
+  framework: string;
+  stateManagement: string;
+  styling: string;
+  buildTools: string;
+  testing: string;
+  performance: string;
+  architecture: string;
+  formHandling: string;
+  routing: string;
+  mobileResponsive: string;
+  additional?: string; // Make this optional
+}
+
+interface BackendTech {
+  runtime: string;
+  framework: string;
+  typescript?: string; // Optional for non-Node backends
+  orm: string;
+  api: string;
+  auth: string;
+  testing: string;
+  monitoring: string;
+  caching: string;
+  architecture: string;
+  worker?: string; // Optional for some backends
+  additional?: string; // Make this optional
+}
 
 // Simulate an open source AI model integration (GGML-based model)
 const useLocalAIModel = async (input: string, context: string): Promise<string> => {
@@ -28,7 +57,43 @@ const useLocalAIModel = async (input: string, context: string): Promise<string> 
 // Generate a more detailed tech stack recommendation
 const generateDetailedTechStack = (projectType: string, preferredStack?: string) => {
   // Base recommendations that will be enhanced with details
-  const baseRecommendations = {
+  const baseRecommendations: {
+    frontend: FrontendTech,
+    backend: BackendTech,
+    database: {
+      primary: string;
+      migration: string;
+      replication: string;
+      backup: string;
+      monitoring: string;
+      cache: string;
+      modeling: string;
+      pooling: string;
+      scaling: string;
+    },
+    devops: {
+      cicd: string;
+      containerization: string;
+      orchestration: string;
+      infrastructure: string;
+      monitoring: string;
+      logging: string;
+      security: string;
+      deployment: string;
+      scaling: string;
+    },
+    security: {
+      authentication: string;
+      authorization: string;
+      encryption: string;
+      headers: string;
+      validation: string;
+      sanitization: string;
+      audit: string;
+      rateLimit: string;
+      dependency: string;
+    }
+  } = {
     frontend: preferredStack?.includes("React") ? 
       {
         framework: "React 18+ with TypeScript",
@@ -116,26 +181,42 @@ const generateDetailedTechStack = (projectType: string, preferredStack?: string)
 
   // For a real app, customize the tech stack based on project type
   if (projectType.toLowerCase().includes("ecommerce")) {
-    baseRecommendations.frontend.framework += " with Next.js for SEO optimization";
-    baseRecommendations.backend.additional = "Elastic Search for product search with faceted navigation";
+    baseRecommendations.frontend = {
+      ...baseRecommendations.frontend,
+      additional: "Next.js for SEO optimization"
+    };
+    baseRecommendations.backend = {
+      ...baseRecommendations.backend,
+      additional: "Elastic Search for product search with faceted navigation"
+    };
   } else if (projectType.toLowerCase().includes("dashboard")) {
-    baseRecommendations.frontend.additional = "recharts or D3.js for data visualization";
-    baseRecommendations.backend.additional = "Data aggregation pipeline with materialized views";
+    baseRecommendations.frontend = {
+      ...baseRecommendations.frontend,
+      additional: "recharts or D3.js for data visualization"
+    };
+    baseRecommendations.backend = {
+      ...baseRecommendations.backend,
+      additional: "Data aggregation pipeline with materialized views"
+    };
   }
 
   return baseRecommendations;
 };
 
 // Generate detailed business lookalikes with specific feature analysis
-const generateDetailedBusinessLookalikes = (description: string) => {
+const generateDetailedBusinessLookalikes = (description: string, references?: string) => {
   const isPetApp = description.toLowerCase().includes("pet") && 
                  (description.toLowerCase().includes("boarding") || 
                   description.toLowerCase().includes("sitting"));
+  
+  // Parse reference links provided by client if available
+  const referenceLinks = references ? references.split(',').map(link => link.trim()) : [];
   
   if (isPetApp) {
     return [
       {
         name: "Rover.com",
+        url: "https://www.rover.com",
         note: "Market leader in pet sitting services with similar booking flow. Key features include calendar-based availability, in-app messaging, secure payments with service guarantees, and comprehensive review system. Their mobile-first design focuses on quick matches based on location.",
         keyFeatures: [
           "Pet sitter profile verification system with background checks",
@@ -148,6 +229,7 @@ const generateDetailedBusinessLookalikes = (description: string) => {
       },
       {
         name: "Wag!",
+        url: "https://wagwalking.com",
         note: "Similar service with focus on dog walking and real-time GPS tracking of walks. Notable for their on-demand service model, gamification elements for walkers, owner photo/video updates during service, and emergency veterinary telehealth consultations.",
         keyFeatures: [
           "Real-time GPS tracking with interactive maps showing walk path",
@@ -160,6 +242,7 @@ const generateDetailedBusinessLookalikes = (description: string) => {
       },
       {
         name: "PetBacker",
+        url: "https://www.petbacker.com",
         note: "International pet sitting platform with comprehensive review system and verification process. Distinguished by their multi-language support, international payment processing, identity verification systems, and support for a wider variety of pet types including exotic animals.",
         keyFeatures: [
           "Multi-currency payment processing with local payment methods",
@@ -173,10 +256,79 @@ const generateDetailedBusinessLookalikes = (description: string) => {
     ];
   } 
   
-  // Generic business lookalikes with detailed analysis
+  // Add client-provided references if available
+  if (referenceLinks && referenceLinks.length > 0) {
+    const clientReferences = referenceLinks.map((link, index) => {
+      // Extract domain name for the reference
+      let name = link.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+      // Make it look nice as a business name
+      name = name.split('.')[0].charAt(0).toUpperCase() + name.split('.')[0].slice(1);
+      
+      return {
+        name: `${name} (Client Reference ${index + 1})`,
+        url: link.startsWith('http') ? link : `https://${link}`,
+        note: `This reference was provided by the client as a similar business or site they're looking to emulate. Our analysis suggests it uses modern web technologies with features relevant to the client's requirements.`,
+        keyFeatures: [
+          "Custom UI/UX relevant to the client's industry",
+          "Industry-specific workflow implementation",
+          "Specialized features for target audience",
+          "Domain-specific business logic",
+          "Relevant integrations for the business domain"
+        ],
+        techImplementation: "Tech stack similar to our recommendation, likely with industry-specific customizations"
+      };
+    });
+    
+    // Generic business lookalikes with detailed analysis
+    return [
+      ...clientReferences,
+      {
+        name: "Industry Leader Example",
+        url: "https://www.industryleader.com",
+        note: "Market leader with comprehensive feature set and polished UX. Their success comes from focusing on core user needs while maintaining an intuitive interface that requires minimal learning curve.",
+        keyFeatures: [
+          "Streamlined onboarding that increases conversion by 37%",
+          "AI-powered recommendation engine with 98% accuracy",
+          "Custom analytics dashboard with actionable business insights",
+          "Progressive loading techniques reducing initial load time by 60%",
+          "Seamless cross-platform experience with synchronized state"
+        ],
+        techImplementation: "Next.js frontend with server-side rendering, Go microservices backend, PostgreSQL database with GraphQL API layer"
+      },
+      {
+        name: "Innovative Disruptor",
+        url: "https://www.innovativedisruptor.com",
+        note: "Disruptor in the space using gamification and social features to drive engagement. They've created a community-focused experience that encourages user-generated content and social sharing.",
+        keyFeatures: [
+          "Social engagement features driving 43% higher retention",
+          "Achievement system with digital rewards and status markers",
+          "User-generated content moderation using ML algorithms",
+          "Real-time collaboration features with conflict resolution",
+          "Progressive enhancement supporting low-bandwidth users"
+        ],
+        techImplementation: "React SPA frontend, Node.js/Express backend, MongoDB for flexible schema, Redis for real-time features"
+      },
+      {
+        name: "Niche Specialist",
+        url: "https://www.nichespecialist.com",
+        note: "Focused solution for a specific vertical with deep domain expertise reflected in their product. They excel by solving industry-specific pain points that generalized solutions miss.",
+        keyFeatures: [
+          "Domain-specific workflows optimized for professional users",
+          "Compliance features meeting industry-specific regulations",
+          "Integration with specialized third-party services",
+          "Advanced data visualization tailored to the vertical",
+          "Enterprise-grade permission system with audit logs"
+        ],
+        techImplementation: "Angular frontend with NgRx, Django backend, PostgreSQL database with materialized views for reporting"
+      }
+    ];
+  }
+  
+  // Generic business lookalikes with detailed analysis when no references provided
   return [
     {
       name: "Industry Leader Example",
+      url: "https://www.industryleader.com",
       note: "Market leader with comprehensive feature set and polished UX. Their success comes from focusing on core user needs while maintaining an intuitive interface that requires minimal learning curve.",
       keyFeatures: [
         "Streamlined onboarding that increases conversion by 37%",
@@ -188,7 +340,8 @@ const generateDetailedBusinessLookalikes = (description: string) => {
       techImplementation: "Next.js frontend with server-side rendering, Go microservices backend, PostgreSQL database with GraphQL API layer"
     },
     {
-      name: "Innovative Competitor",
+      name: "Innovative Disruptor",
+      url: "https://www.innovativedisruptor.com",
       note: "Disruptor in the space using gamification and social features to drive engagement. They've created a community-focused experience that encourages user-generated content and social sharing.",
       keyFeatures: [
         "Social engagement features driving 43% higher retention",
@@ -201,6 +354,7 @@ const generateDetailedBusinessLookalikes = (description: string) => {
     },
     {
       name: "Niche Specialist",
+      url: "https://www.nichespecialist.com",
       note: "Focused solution for a specific vertical with deep domain expertise reflected in their product. They excel by solving industry-specific pain points that generalized solutions miss.",
       keyFeatures: [
         "Domain-specific workflows optimized for professional users",
@@ -235,6 +389,7 @@ export const generateTechnicalScope = async (inputData: FormData): Promise<Outpu
   
   if (isPetBoardingApp) {
     return {
+      // ... keep existing code (functionalScope array)
       functionalScope: [
         "User authentication system with OAuth 2.0 and JWT implementation",
         "Pet sitter profile management with RESTful API endpoints",
@@ -247,12 +402,14 @@ export const generateTechnicalScope = async (inputData: FormData): Promise<Outpu
         "Role-based access control (RBAC) admin panel",
         "Event-driven notification system (email, push, SMS) with queuing"
       ],
+      // ... keep existing code (techStack object)
       techStack: {
         frontend: "React 18 with TypeScript 5.0+, Redux Toolkit for state management, React Query for data fetching, Styled Components with Tailwind CSS, Vite for build system",
         backend: "Node.js 20+ with Express.js, GraphQL API with Apollo Server, Socket.io for real-time features, Jest for testing, TypeORM for ORM",
         database: "PostgreSQL 15+ with PostGIS extension for geospatial queries, Redis for caching and session management",
         other: "Docker and Docker Compose for containerization, GitHub Actions for CI/CD, AWS S3 for object storage, Cloudflare for CDN and DDoS protection"
       },
+      // ... keep existing code (integrations and thirdPartyTools arrays)
       integrations: [
         "Stripe Connect for marketplace payment processing and escrow functionality",
         "Google Maps Places API for address autocomplete and geolocation",
@@ -272,7 +429,8 @@ export const generateTechnicalScope = async (inputData: FormData): Promise<Outpu
         "Sentry for error tracking and monitoring",
         "Mixpanel for user behavior analytics"
       ],
-      businessLookalikes: generateDetailedBusinessLookalikes(inputData.clientDescription),
+      businessLookalikes: generateDetailedBusinessLookalikes(inputData.clientDescription, inputData.references),
+      // ... keep existing code (estimatedTimeline object)
       estimatedTimeline: {
         total: "14-16 weeks",
         breakdown: [
@@ -285,6 +443,7 @@ export const generateTechnicalScope = async (inputData: FormData): Promise<Outpu
           { phase: "Deployment & DevOps", duration: "1 week" }
         ]
       },
+      // ... keep existing code (backendFrontendTasks object)
       backendFrontendTasks: {
         backend: [
           "OAuth 2.0 & JWT authentication service",
@@ -312,6 +471,7 @@ export const generateTechnicalScope = async (inputData: FormData): Promise<Outpu
           "Admin dashboard with analytics visualization"
         ]
       },
+      // ... keep existing code (sprintBreakdown array)
       sprintBreakdown: [
         {
           sprint: "Sprint 1 (2 weeks)",
@@ -384,6 +544,7 @@ export const generateTechnicalScope = async (inputData: FormData): Promise<Outpu
   
   // Enhanced generic response for other types of projects
   return {
+    // ... keep existing code (generic project response)
     functionalScope: [
       "Secure user authentication with multi-factor authentication (MFA) support",
       "Comprehensive user profile management with role-based permissions",
@@ -419,7 +580,7 @@ export const generateTechnicalScope = async (inputData: FormData): Promise<Outpu
       "A/B testing framework for UX optimization",
       "Automated CI/CD pipeline with GitHub Actions/Jenkins"
     ],
-    businessLookalikes: generateDetailedBusinessLookalikes(inputData.clientDescription),
+    businessLookalikes: generateDetailedBusinessLookalikes(inputData.clientDescription, inputData.references),
     estimatedTimeline: {
       total: "12-16 weeks",
       breakdown: [
